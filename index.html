@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bankist</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h2>Log in to get started</h2>
+      <img src="/assets/img/logo.png" alt="logo" />
+    </header>
+    <main class="app">
+      <!-- Shows balance and current Date -->
+      <div class="balance-container">
+        <div>
+          <h2>Current Balance</h2>
+          <span class="current-date">As of 05/03/2037</span>
+        </div>
+        <div>
+          <h1 class="current-balance">0000€</h1>
+        </div>
+      </div>
+      <div class="boxes">
+        <div class="container-movements">
+          <div class="movements">
+            <span class="movement movement-deposit">1 DEPOSIT</span>
+            <span class="movement movement-date">3 DAYS AGO </span>
+            <span class="movement movement-value">4 000€</span>
+          </div>
+          <div class="movements">
+            <span class="movement movement-draw">2 WITHDRAWAL</span>
+            <span class="movement movement-date">3 DAYS AGO </span>
+            <span class="movement movement-value">4 000€</span>
+          </div>
+        </div>
+        <div class="container-inputs">
+          <div class="input transfer-input">
+            <h2>Transfer money</h2>
+            <form class="form">
+          <input type="text" class="form__input form__input--to" />
+            <input type="number" class="form__input form__input--amount" />
+            <button class="form__btn form__btn--transfer">&rarr;</button>
+              <label class="form__label">Transfer to</label>
+              <label class="form__label">Amount</label>
+
+            </form>
+            
+
+          </div>
+          <div class="input loan-input">
+            <h2>Loan money</h2>
+            <form class="form">
+              <input type="text" class="form__input form__input--loan" />
+              <button class="form__btn form__btn--loan">&rarr;</button>
+              <label class="form__label" style="display: block">Amount</label>
+            </form>
+          </div>
+          <div class="input close-input">
+            <h2>Close Account</h2>
+            <form class="form">
+              <input type="text" class="form__input form__input--username" />
+              <input type="number" class="form__input form__input--pin" />
+              <button class="form__btn form__btn--close-account">&rarr;</button>
+              <label class="form__label">Confirm user</label>
+              <label class="form__label">Confirm PIN</label>
+            </form>
+        </div>
+        </div>
+      </div>
+
+            <!-- summary -->
+       <div class="operation-bottom">
+           <div class="summary">
+               <div class="summary-type summary-type--in">
+                   <span>IN</span>
+                   <h2 class="summary-in">0000€</h2>
+               </div>
+               <div class="summary-type summary-type--out">
+                   <span>OUT</span>
+                   <h2 class="summary-out">0000€</h2>
+               </div>
+               <div class="summary-type summary-type--tax">
+                   <span>INTEREST</span>
+                   <h2 class="summary-tax">0000€</h2>
+               </div>
+           </div>
+           <div class="sort">
+               <span class="sort-btn">↓ SORT</span>
+           </div>
+           <div class="log-out">
+              <span">You will be logged out in 
+                  <span class="log-out-timer">05:00</span></span>
+           </div>
+       </div>
+    </main>
+
+    <!-- accounts login manager -->
+     <div class="login">
+         <h1>Login</h1>
+         <div class="login-input">
+            <input type="text" placeholder="username" class="form__input form__input--username"/>
+            <input type="number" placeholder="PIN" class="form__input form__input--pin"/>
+         </div>
+     </div>
+
+    
+
+    <!-- //Script -->
+    <script src="/assets/brain.js"></script>
+  </body>
+</html>
