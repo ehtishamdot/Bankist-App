@@ -122,10 +122,12 @@ const displayUi = function () {
 
 //display Date
 const dates = function (val) {
+  const dateValue = Math.floor(
+    (new Date().getTime() - new Date(val).getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  console.log(dateValue);
   const curDate = new Date().getTime();
-  //   const calDate =
-  console.log(val);
-  const loc = currentAccount.locale;
   const options = {
     hour: `numeric`,
     minute: `numeric`,
@@ -135,11 +137,25 @@ const dates = function (val) {
     weekday: `long`,
   };
   const locate = navigator.language;
+
+  const dateMaker = (val) =>
+    new Intl.DateTimeFormat(locate, options).format(val);
+  currentDate.textContent = `as of ${dateMaker(curDate)}`;
+
+  if (dateValue === 0) {
+    return `Today`;
+  }
+  if (dateValue === 1) {
+    return `Yesterday`;
+  }
+  if (dateValue <= 7) {
+    return `${dateValue} day's ago`;
+  }
+  if (dateValue > 7) {
+    return dateMaker(new Date(val).getTime());
+  }
+
   console.log(locate);
-  currentDate.textContent = `as of ${new Intl.DateTimeFormat(
-    locate,
-    options
-  ).format(curDate)}`;
 };
 
 const displayMovements = function (sort = false, acc) {
@@ -147,19 +163,14 @@ const displayMovements = function (sort = false, acc) {
   const sortedMovements = sort
     ? acc.movements.slice().sort((a, b) => a - b)
     : acc.movements;
-  console.log(sortedMovements);
   containerMovements.innerHTML = "";
   sortedMovements.forEach((val, i) => {
-    const inputDates = Math.floor(
-      (new Date().getTime() -
-        new Date(currentAccount.movementsDates[i]).getTime()) /
-        (1000 * 60 * 60 * 24)
-    );
-
     let depositCheck = val > 0 ? `deposit` : `draw`;
     const html = `<div class="movements">
             <span class="movement movement-${depositCheck}">${i} DEPOSIT</span>
-            <span class="movement movement-date">${dates(inputDates)}</span>
+            <span class="movement movement-date">${dates(
+              currentAccount.movementsDates[i]
+            )}</span>
             <span class="movement movement-value">${val}</span>
           </div>`;
     containerMovements.insertAdjacentHTML("afterbegin", html);
@@ -194,7 +205,6 @@ btnLogin.addEventListener("click", (e) => {
 
   displayUi();
   dates(currentAccount);
-  console.log(currentAccount);
 });
 
 //Calculate Total Balance and summary
@@ -218,9 +228,9 @@ const displaySummary = function (acc) {
 };
 
 //accounts transfer
-const ttlBalance = Number(totalBalance.textContent.replace("€", ""));
 btnTransfer.addEventListener("click", (e) => {
   e.preventDefault();
+  const ttlBalance = Number(totalBalance.textContent.replace("€", ""));
   const to = inputTo.value;
   const amount = Number(inputAmount.value);
 
@@ -230,10 +240,12 @@ btnTransfer.addEventListener("click", (e) => {
       val.username === to &&
       amount > 0 &&
       to !== currentAccount.username &&
-      amount <= ttlBalance
+      amount < ttlBalance
     ) {
       currentAccount.movements.push(-amount);
       val.movements.push(amount);
+      currentAccount.movementsDates.push(new Date().getTime());
+      val.movementsDates.push(new Date().getTime());
       displayUi();
       inputTo.value = "";
       inputAmount.value = "";
@@ -278,6 +290,10 @@ btnSort.addEventListener("click", (e) => {
   displayMovements(!set, currentAccount);
   set = !set;
 });
+
+//timer
+
+
 
 //string work
 //creates username
