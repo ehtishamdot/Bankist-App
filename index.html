@@ -15,8 +15,9 @@
   </head>
   <body>
     <header>
-      <h2>Log in to get started</h2>
+      <h2 class="login-label">Log in to get started</h2>
       <img src="/assets/img/logo.png" alt="logo" />
+      <button class="logout form__btn">Logout</button>
     </header>
     <main class="app">
       <!-- Shows balance and current Date -->
@@ -68,7 +69,7 @@
             <h2>Close Account</h2>
             <form class="form">
               <input type="text" class="form__input form__input--username" />
-              <input type="number" class="form__input form__input--pin" />
+              <input type="password" maxlength="4" class="form__input form__input--pin" />
               <button class="form__btn form__btn--close-account">&rarr;</button>
               <label class="form__label">Confirm user</label>
               <label class="form__label">Confirm PIN</label>
@@ -104,14 +105,29 @@
     </main>
 
     <!-- accounts login manager -->
-     <div class="login">
-         <h1>Login</h1>
-         <div class="login-input">
-            <input type="text" placeholder="username" class="form__input form__input--username"/>
-            <input type="number" placeholder="PIN" class="form__input form__input--pin"/>
-         </div>
+
+    <div class="login-input">
+        <form class="login">
+            <h1>Login</h1>
+        <input
+          type="text"
+          placeholder="user"
+          class="form__input login__input--user"
+        />
+        <!-- In practice, use type="password" -->
+        <input
+          type="password"
+          placeholder="PIN"
+          maxlength="4"
+          class="form__input login__input--pin"
+        />
+        <button class="form__btn btn-login">&rarr;</button>
+      </form>
      </div>
 
+
+     
+    
     
 
     <!-- //Script -->
