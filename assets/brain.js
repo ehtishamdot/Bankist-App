@@ -85,6 +85,7 @@ const summaryOut = document.querySelector(".summary-out");
 const summaryTax = document.querySelector(".summary-tax");
 const totalBalance = document.querySelector(".current-balance");
 const currentDate = document.querySelector(".current-date");
+const timer = document.querySelector(".log-out-timer");
 
 //app
 const loginApp = document.querySelector(".login-input");
@@ -202,7 +203,7 @@ btnLogin.addEventListener("click", (e) => {
       loginLabel.textContent = `Welcome, ${currentAccount.owner}`;
     }
   });
-
+  logOutTimer();
   displayUi();
   dates(currentAccount);
 });
@@ -292,7 +293,24 @@ btnSort.addEventListener("click", (e) => {
 });
 
 //timer
+const logOutTimer = function(){
+    
+    let ls =10;
+    let lm = 0;
 
+   const setIn = setInterval(() => {
+       timer.textContent = `${lm}:${ls}`;
+       ls--;
+       if (ls === 0) {
+       ls = 60;
+       lm--;
+     }
+     if(lm < 0){
+         clearInterval(setIn);
+         app.style.display = 'none';
+     }
+   }, 1000);
+}
 
 
 //string work
