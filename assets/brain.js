@@ -172,7 +172,7 @@ const displayMovements = function (sort = false, acc) {
             <span class="movement movement-date">${dates(
               currentAccount.movementsDates[i]
             )}</span>
-            <span class="movement movement-value">${val}</span>
+            <span class="movement movement-value">${val}€</span>
           </div>`;
     containerMovements.insertAdjacentHTML("afterbegin", html);
   });
@@ -185,6 +185,8 @@ btnLogout.addEventListener("click", (e) => {
   loginApp.style.display = "block";
   app.style.display = "none";
   loginLabel.textContent = `Log in to get started`;
+  clearInterval(setIn);
+  timer.textContent = ``;   
 });
 
 //Login
@@ -203,6 +205,7 @@ btnLogin.addEventListener("click", (e) => {
       loginLabel.textContent = `Welcome, ${currentAccount.owner}`;
     }
   });
+  clearInterval(setIn);
   logOutTimer();
   displayUi();
   dates(currentAccount);
@@ -236,7 +239,7 @@ btnTransfer.addEventListener("click", (e) => {
   const amount = Number(inputAmount.value);
 
   console.log(ttlBalance);
-  accounts.forEach((val, i) => {
+  accounts.forEach((val) => {
     if (
       val.username === to &&
       amount > 0 &&
@@ -252,19 +255,27 @@ btnTransfer.addEventListener("click", (e) => {
       inputAmount.value = "";
     }
   });
+   clearInterval(setIn);
+   logOutTimer();
 });
 
 btnLoan.addEventListener("click", (e) => {
   e.preventDefault();
+
+  const ttlBalance = Number(totalBalance.textContent.replace("€", ""));
   const loan = Number(inputLoan.value);
   console.log(ttlBalance);
   const loanMinimum = ttlBalance * 0.1;
   console.log(loanMinimum);
   const loanMaximum = 10000;
-  FIXME: if (loan >= loanMinimum && loan <= loanMaximum) {
+  if (loan >= loanMinimum && loan <= loanMaximum) {
+    currentAccount.movementsDates.push(new Date().getTime());
     currentAccount.movements.push(loan);
     displayUi();
+    inputLoan.value = "";
   }
+  clearInterval(setIn);
+     logOutTimer();
 });
 
 //close Account
@@ -293,25 +304,26 @@ btnSort.addEventListener("click", (e) => {
 });
 
 //timer
-const logOutTimer = function(){
-    
-    let ls =10;
-    let lm = 0;
-
-   const setIn = setInterval(() => {
-       timer.textContent = `${lm}:${ls}`;
-       ls--;
-       if (ls === 0) {
-       ls = 60;
-       lm--;
-     }
-     if(lm < 0){
-         clearInterval(setIn);
-         app.style.display = 'none';
-     }
-   }, 1000);
-}
-
+let setIn;
+const logOutTimer = function () {
+ 
+  let ls = 60;
+  let lm = 4;
+  setIn = setInterval(() => {
+    if (lm < 0) {
+      clearInterval(setIn);
+      app.style.display = "none";
+      loginApp.style.display = "block";
+      btnLogout.style.display = "none";
+    }
+    ls--;
+    timer.textContent = `0${lm}:${ls}`;
+    if (ls === 0) {
+      ls = 60;
+      lm--;
+    }
+  }, 1000);
+};
 
 //string work
 //creates username

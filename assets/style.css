@@ -166,7 +166,7 @@ header h2 {
   transition: 0.3s;
 }
 .app {
-  width: 50%;
+  width: 60%;
   top: 15%;
   left: 50%;
   transform: translate(-50%);
@@ -174,7 +174,7 @@ header h2 {
   display: none;
 }
 .login {
-  width: 40%;
+  width: 30%;
   transform: translate(-50%);
   top: 25%;
   left: 50%;
@@ -275,7 +275,7 @@ header h2 {
 
 .container-inputs .input {
   border-radius: 10px;
-  padding: 2rem 1rem;
+  padding: 2rem 2rem;
   width: 100%;
   margin-bottom: 0.5rem;
 }
@@ -425,4 +425,7 @@ header h2 {
 
 .logout{
   display: none;
+  font-size: 1.5rem;
+  background-image: linear-gradient(to top left, #e52a5a, #ff585f);
+  color: white;
 }
